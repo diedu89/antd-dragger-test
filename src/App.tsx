@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "antd/dist/antd.css";
+import { Upload } from "antd";
+const { Dragger } = Upload;
 
-function App() {
+function App({ onUploadComplete }: { onUploadComplete: () => void }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Dragger
+      data-testid="upload-dragger"
+      maxCount={1}
+      action="greeting"
+      onChange={({ file }) => {
+        if (file.status === "done") onUploadComplete();
+      }}
+      showUploadList={false}
+    >
+      <p className="ant-upload-text">
+        Click or drag file to this area to upload
+      </p>
+    </Dragger>
   );
 }
 
